@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+	@NamedQuery(name="getAllNonDeleted",
+		query="SELECT e from Employee e WHERE e.deleted = false"),
+	@NamedQuery(name="getNonDeletedById", 
+		query="SELECT e from Employee e WHERE e.deleted = false AND e.id = :id")})
 public class Employee {
 	@Id
 	@GeneratedValue
@@ -21,6 +26,10 @@ public class Employee {
 	private Date hireDate;
 	private String phoneNumber;
 	private Long salary;
+	@Column(nullable = false, columnDefinition = "boolean DEFAULT false")
+	private boolean deleted;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deletedDate;
 
 	public Long getId() {
 		return id;
@@ -76,6 +85,28 @@ public class Employee {
 
 	public void setSalary(Long salary) {
 		this.salary = salary;
+	}
+
+	/** bean setter is protected so as to prevent modification from JSON service layer */
+	protected void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	protected boolean isDeleted() {
+		return deleted;
+	}
+	
+	protected void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
+	}
+
+	protected Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void delete(){
+		setDeleted(true);
+		setDeletedDate(new Date());
 	}
 
 }

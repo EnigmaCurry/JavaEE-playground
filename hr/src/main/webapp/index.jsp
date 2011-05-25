@@ -3,7 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script src="/hr-jpa/js/jquery.rest.min.js"></script>
+<script src="/hr-jpa/js/vendor/json2.js"></script>
+<script src="/hr-jpa/js/vendor/jquery.rest_json.js"></script>
 <body>
 Hi again
 </body>
