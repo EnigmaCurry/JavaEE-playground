@@ -1,0 +1,3 @@
+[submodule "hr/src/main/webapp/js/vendor/slickgrid"]
+	path = hr/src/main/webapp/js/vendor/slickgrid
+	url = https://github.com/mleibman/SlickGrid.git
