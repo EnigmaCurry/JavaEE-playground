@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 import com.enigmacurry.hr.model.Employee;
 import com.enigmacurry.hr.service.exception.ServiceEntityNotFoundException;
-import com.enigmacurry.hr.service.exception.ServiceException;
 import com.enigmacurry.hr.service.json.EmployeeService;
 
 @Stateless
@@ -26,6 +25,13 @@ public class EmployeeServiceBean implements EmployeeService {
 		Employee emp = (Employee) em.createNamedQuery("getNonDeletedById")
 				.setParameter("id", id).getSingleResult();
 		return emp;
+	}	
+	
+	@Override
+	public List<Employee> getAllEmployees() {
+		//Get employee by id, as long as it isn't soft deleted.
+		List<Employee> empList = em.createNamedQuery("getAllNonDeleted").getResultList();
+		return empList;
 	}
 
 	@Override

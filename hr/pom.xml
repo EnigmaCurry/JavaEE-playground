@@ -22,20 +22,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Adds WTP support to Eclipse project -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<wtpversion>2.0</wtpversion>
-					<additionalProjectFacets>
-						<jst.web>2.5</jst.web>
-						<jst.jsf>1.2</jst.jsf>
-						<jsf.facelet>1.0</jsf.facelet>
-					</additionalProjectFacets>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 

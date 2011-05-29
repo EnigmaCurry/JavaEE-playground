@@ -31,6 +31,13 @@ public class EmployeeJSONService {
 		}
 		return emp;
 	}
+	
+	@GET
+	@Path("/all")
+	public List<Employee> getAllEmployees(){
+		List<Employee> empList = service.getAllEmployees();
+		return empList;
+	}
 
 	@DELETE
 	@Path("/{id: [0-9]+}")
