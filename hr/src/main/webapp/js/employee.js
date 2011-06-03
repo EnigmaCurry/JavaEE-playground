@@ -15,28 +15,34 @@ Employees = function() {
 
 	var grid;
 	var data;
-	var updated; // id -> employee
+	var updated; // {} = id -> employee
 	var cols = [ {
-		id : "firstName",
-		field : "firstName",
-		name : "First Name",
-		width : 100,
-		editor : TextCellEditor
-	}, {
 		id : "lastName",
 		field : "lastName",
 		name : "Last Name",
-		width : 100,
+		width : 200,
+		sortable : true,
+		editor : TextCellEditor
+	}, {
+		id : "firstName",
+		field : "firstName",
+		name : "First Name",
+		width : 200,
+		sortable : true,
 		editor : TextCellEditor
 	}, {
 		id : "email",
 		field : "email",
 		name : "Email",
+		width : 200,
+		sortable : true,
 		editor : TextCellEditor
 	}, {
 		id : "hireDate",
 		field : "hireDate",
+		width : 200,
 		name : "Hire Date",
+		sortable : true,
 		editor : DateCellEditor
 	} ];
 	var options = {
@@ -52,6 +58,27 @@ Employees = function() {
 		grid.onCellChange.subscribe(function(e, args) {
 			var emp = args.item;
 			updated[emp.id] = emp;
+		});
+
+		setup_sorting();
+	}
+
+	function setup_sorting() {
+		function comparer(a, b) {
+			var x = a[sortcol], y = b[sortcol];
+			if (sortdir == 1) {
+				return (x == y ? 0 : (x > y ? -1 : 1));
+			} else {
+				return (x == y ? 0 : (x > y ? 1 : -1));
+			}
+
+		}
+
+		grid.onSort.subscribe(function(e, args) {
+			sortdir = args.sortAsc ? 1 : -1;
+			sortcol = args.sortCol.field;
+			data.sort(comparer, sortdir);
+			grid.invalidate();
 		});
 	}
 
@@ -84,8 +111,8 @@ $(document).ready(function() {
 	$.get("api/employee/all", function(data) {
 		Employees.create(data);
 	});
-	
-	$("#employees_save").click(function(){
+
+	$("#employees_save").click(function() {
 		Employees.save();
 	});
 });
